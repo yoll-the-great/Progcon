@@ -28,6 +28,7 @@ order_amount=[]
 menu_list += threeSize + twoSize + regularSize
 # para nasa isang container lang lahat ng prices
 menu_price += threeSizesPrice + twoSizePrice + regularSizePrice
+stock = [50] * len(menu_list)
 orderNum = 0
 
 
@@ -56,10 +57,14 @@ while isOrdering:
         order_amount=int(input("Amount:"))
         index = menu_list.index(orderInput)
         orderSize = 1
-        if order_amount == 0:
-            print("enter a valid amount")
+        if order_amount <= 0:
+            print("Enter a valid amount.")
+            continue
+        if order_amount > stock[index]:
+            print(f"Not enough stock. {menu_list[index]} has {stock[index]} left.")
             continue
         orderList.append([index, orderSize, order_amount])
+        stock[index] -= order_amount
         print("Added Order!")
         print("------------")
         newOrder = input("Do you want to add another order? (y): ").lower()
@@ -68,11 +73,15 @@ while isOrdering:
         order_amount=int(input("Amount:"))
         index = menu_list.index(orderInput)
         orderSize = int(input("enter your size:(1,2): "))
-        if order_amount == 0:
-            print("enter a valid amount")
+        if order_amount <= 0:
+            print("Enter a valid amount.")
             continue
         if orderSize >= 1 and orderSize < 3:
+            if order_amount > stock[index]:
+                print(f"Not enough stock. {menu_list[index]} has {stock[index]} left.")
+                continue
             orderList.append([index, orderSize, order_amount])
+            stock[index] -= order_amount
             print("Added Order!")
             print("------------")
             newOrder = input("Do you want to add another order? (y/n): ").lower()
@@ -83,11 +92,15 @@ while isOrdering:
         order_amount=int(input("Amount:"))
         index = menu_list.index(orderInput)       
         orderSize = int(input("enter your size:(1,2,3): "))
-        if order_amount == 0:
-            print("enter a valid amount")
+        if order_amount <= 0:
+            print("Enter a valid amount.")
             continue
         if orderSize >= 1 and orderSize < 4:
+            if order_amount > stock[index]:
+                print(f"Not enough stock. {menu_list[index]} has {stock[index]} left.")
+                continue
             orderList.append([index, orderSize, order_amount])
+            stock[index] -= order_amount
             print("Added Order!")
             print("------------")
             newOrder = input("Do you want to add another order? (y/n): ").lower()
@@ -108,12 +121,22 @@ totalPrice = 0
 
 for index, size, quantity in orderList:
     unit_price = menu_price[index][size - 1]
-    # menu_list[index] -> item,  unit_price -> price per unit, total
     print(menu_list[index], ":", unit_price, "*", quantity, "=", unit_price*quantity)
     totalPrice += unit_price * quantity
 
 print("----------------")
 print(f"Total: {totalPrice}")
 print("Thank you for ordering at 654 Cafe!")
+print("")
+print("")
+print("")
 print("================")
-# arigathanks <3
+checkStock = input("Check Stock?: ").lower
+print("1. yes")
+print("2. no")
+if checkStock == "yes":
+    print("Remaining stock:")
+    # Enumerate the remaining Stock
+    for index, item in enumerate(menu_list):
+        print({item},":", {stock[index]})
+    # arigathanks <3
