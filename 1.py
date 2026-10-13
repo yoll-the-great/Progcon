@@ -108,6 +108,7 @@ totalPrice = 0
 
 for index, size, quantity in orderList:
     unit_price = menu_price[index][size - 1]
+    # menu_list[index] -> item,  unit_price -> price per unit, total
     print(menu_list[index], ":", unit_price, "*", quantity, "=", unit_price*quantity)
     totalPrice += unit_price * quantity
 
