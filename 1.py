@@ -131,7 +131,7 @@ print("")
 print("")
 print("")
 print("================")
-checkStock = input("Check Stock?: ").lower
+checkStock = input("Check Stock?: ").lower()
 print("1. yes")
 print("2. no")
 if checkStock == "yes":
